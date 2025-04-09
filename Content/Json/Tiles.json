@@ -1,0 +1,29 @@
+{
+  "all_tiles": [
+    {
+      "name": "unknown",
+      "enum": 0,
+      "mesh": "unknown"
+    },
+    {
+      "name": "grass",
+      "enum": 1,
+      "mesh": "grass"
+    },
+    {
+      "name": "bush",
+      "enum": 2,
+      "mesh": "bush"
+    },
+    {
+      "name": "tree",
+      "enum": 3,
+      "mesh": "tree"
+    },
+    {
+      "name": "path",
+      "enum": 4,
+      "mesh": "path"
+    } 
+  ]
+}
