@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "QuestAttributeSet.h"
 #include "CatCharacter.generated.h"
 
 UCLASS()
@@ -31,7 +32,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Health")
 	float TakeDamage( float DamageTaken, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
+	UQuestAttributeSet* QuestAttributes;
 
+	
 
 protected:
 	// Called when the game starts or when spawned

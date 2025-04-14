@@ -13,5 +13,23 @@ UCLASS()
 class SHROOMCAFE_API UUUIManager : public UObject
 {
 	GENERATED_BODY()
+
+//
+//public:
+//    UFUNCTION(BlueprintCallable)
+//    void ShowQuestLog();
+//
+//    UFUNCTION(BlueprintCallable)
+//    void ShowMainHUD();
+//
+//    UFUNCTION(BlueprintCallable)
+//    void HideAllUI();
+//
+//private:
+//    UPROPERTY()
+//    UUserWidget* QuestLogWidget;
+//
+//    UPROPERTY()
+//    UUserWidget* MainHUDWidget;
 	
 };

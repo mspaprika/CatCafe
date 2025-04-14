@@ -19,6 +19,7 @@ ACatCharacter::ACatCharacter()
 	FireRate = 0.25f;
 	bIsFiringWeapon = false;
 
+	QuestAttributes = CreateDefaultSubobject<UQuestAttributeSet>(TEXT("QuestAttributes"));
 }
 
 // Called when the game starts or when spawned
