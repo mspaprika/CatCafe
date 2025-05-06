@@ -30,10 +30,17 @@ public:
 
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "Quest", ReplicatedUsing = OnRep_MushroomsCollected)
-	FGameplayAttributeData MushroomsCollected;
-	ATTRIBUTE_ACCESSORS(UQuestAttributeSet, MushroomsCollected)
+	UPROPERTY(BlueprintReadOnly, Category = "Quest", ReplicatedUsing = OnRep_QuestStatusUpdated)
+	FGameplayAttributeData QuestStatus;
+	ATTRIBUTE_ACCESSORS(UQuestAttributeSet, QuestStatus)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Quest", ReplicatedUsing = OnRep_ActiveQuestUpdated)
+	FGameplayAttributeData ActiveQuest;
+	ATTRIBUTE_ACCESSORS(UQuestAttributeSet, ActiveQuest)
 
 	UFUNCTION()
-	void OnRep_MushroomsCollected(const FGameplayAttributeData& OldValue);
+	void OnRep_QuestStatusUpdated(const FGameplayAttributeData& OldValue);
+
+	UFUNCTION()
+	void OnRep_ActiveQuestUpdated(const FGameplayAttributeData& OldValue);
 };

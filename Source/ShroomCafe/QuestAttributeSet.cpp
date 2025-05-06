@@ -3,29 +3,44 @@
 
 #include "QuestAttributeSet.h"
 #include "Net/UnrealNetwork.h"
+#include "Types.h"
 
 UQuestAttributeSet::UQuestAttributeSet()
 {
+    QuestStatus = static_cast< float >(EQuestID::FindCatTree);
 }
 
 void UQuestAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(UQuestAttributeSet, MushroomsCollected);
+    DOREPLIFETIME(UQuestAttributeSet, QuestStatus);
+
+    DOREPLIFETIME(UQuestAttributeSet, ActiveQuest);
 }
 
-void UQuestAttributeSet::OnRep_MushroomsCollected(const FGameplayAttributeData& OldValue)
+void UQuestAttributeSet::OnRep_QuestStatusUpdated(const FGameplayAttributeData& OldValue)
 {
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UQuestAttributeSet, MushroomsCollected, OldValue);
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UQuestAttributeSet, QuestStatus, OldValue);
+}
+
+void UQuestAttributeSet::OnRep_ActiveQuestUpdated(const FGameplayAttributeData& OldValue)
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UQuestAttributeSet, ActiveQuest, OldValue);
 }
 
 void UQuestAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
     Super::PostGameplayEffectExecute(Data);
 
-    if (Data.EvaluatedData.Attribute == GetMushroomsCollectedAttribute())
+    if (Data.EvaluatedData.Attribute == GetQuestStatusAttribute())
     {
-        float NewValue = GetMushroomsCollected();
+        float NewValue = GetQuestStatus();
+        // Log or trigger event
+    }
+
+    if (Data.EvaluatedData.Attribute == GetActiveQuestAttribute())
+    {
+        float NewValue = GetActiveQuest();
         // Log or trigger event
     }
 }
