@@ -35,10 +35,7 @@ void ACatCharacter::BeginPlay()
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 
-		
-		AbilitySystemComponent->GiveAbility(
-			FGameplayAbilitySpec(UGameplayAbility_Quest::StaticClass(), 1, INDEX_NONE, this));
-			
+		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(UGameplayAbility_Quest::StaticClass(), 1, INDEX_NONE, this));		
 	}
 }
 
