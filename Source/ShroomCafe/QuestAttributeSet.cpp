@@ -7,20 +7,21 @@
 
 UQuestAttributeSet::UQuestAttributeSet()
 {
-    QuestStatus = static_cast< float >(EQuestID::FindCatTree);
+    ActiveQuest = static_cast< float >(EQuestID::None);
+    QuestState = static_cast< float >(EQuestState::NotStarted);
 }
 
 void UQuestAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(UQuestAttributeSet, QuestStatus);
+    DOREPLIFETIME(UQuestAttributeSet, QuestState);
 
     DOREPLIFETIME(UQuestAttributeSet, ActiveQuest);
 }
 
 void UQuestAttributeSet::OnRep_QuestStatusUpdated(const FGameplayAttributeData& OldValue)
 {
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UQuestAttributeSet, QuestStatus, OldValue);
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UQuestAttributeSet, QuestState, OldValue);
 }
 
 void UQuestAttributeSet::OnRep_ActiveQuestUpdated(const FGameplayAttributeData& OldValue)
@@ -32,9 +33,9 @@ void UQuestAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 {
     Super::PostGameplayEffectExecute(Data);
 
-    if (Data.EvaluatedData.Attribute == GetQuestStatusAttribute())
+    if (Data.EvaluatedData.Attribute == GetQuestStateAttribute())
     {
-        float NewValue = GetQuestStatus();
+        float NewValue = GetQuestState();
         // Log or trigger event
     }
 

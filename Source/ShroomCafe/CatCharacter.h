@@ -4,11 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "QuestAttributeSet.h"
 #include "CatCharacter.generated.h"
 
 UCLASS()
-class SHROOMCAFE_API ACatCharacter : public ACharacter
+class SHROOMCAFE_API ACatCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -34,7 +35,12 @@ public:
 
 	UQuestAttributeSet* QuestAttributes;
 
-	
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
+	UAbilitySystemComponent* AbilitySystemComponent;
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -81,6 +87,7 @@ protected:
 	/** Server function for spawning projectiles ( RPC ).*/
 	UFUNCTION(Server, Reliable)
 	void HandleFire();
+
 	void HandleFire_Implementation();
 	/*Because HandleFire has the Reliable specifier as well, it is placed into a queue for reliable RPCs whenever it gets called, 
 	and it is removed from the queue, when the server successfully receives it.This guarnatees that the server will definitely receive this function call.

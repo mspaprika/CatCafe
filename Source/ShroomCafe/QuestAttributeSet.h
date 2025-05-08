@@ -31,8 +31,8 @@ public:
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Quest", ReplicatedUsing = OnRep_QuestStatusUpdated)
-	FGameplayAttributeData QuestStatus;
-	ATTRIBUTE_ACCESSORS(UQuestAttributeSet, QuestStatus)
+	FGameplayAttributeData QuestState;
+	ATTRIBUTE_ACCESSORS(UQuestAttributeSet, QuestState)
 
 	UPROPERTY(BlueprintReadOnly, Category = "Quest", ReplicatedUsing = OnRep_ActiveQuestUpdated)
 	FGameplayAttributeData ActiveQuest;

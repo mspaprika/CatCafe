@@ -4,6 +4,9 @@
 #include "Net/UnrealNetwork.h"
 #include "Engine/Engine.h"
 #include "CatProjectile.h"
+#include "GameplayAbility_Quest.h"
+#include "AbilitySystemComponent.h"
+
 
 // Sets default values
 ACatCharacter::ACatCharacter()
@@ -20,13 +23,23 @@ ACatCharacter::ACatCharacter()
 	bIsFiringWeapon = false;
 
 	QuestAttributes = CreateDefaultSubobject<UQuestAttributeSet>(TEXT("QuestAttributes"));
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 }
 
 // Called when the game starts or when spawned
 void ACatCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		
+		AbilitySystemComponent->GiveAbility(
+			FGameplayAbilitySpec(UGameplayAbility_Quest::StaticClass(), 1, INDEX_NONE, this));
+			
+	}
 }
 
 // Called every frame
@@ -123,6 +136,7 @@ void ACatCharacter::StartFire()
 
 }
 
+
 void ACatCharacter::StopFire()
 {
 	bIsFiringWeapon = false;
@@ -137,4 +151,9 @@ void ACatCharacter::HandleFire_Implementation()
 	spawnParameters.Owner = this;
 	ACatProjectile* spawnedProjectile = GetWorld()->SpawnActor<ACatProjectile>(spawnLocation, spawnRotation, spawnParameters);
 
+}
+
+UAbilitySystemComponent* ACatCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
